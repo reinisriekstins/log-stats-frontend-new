@@ -4,7 +4,7 @@
 2. Fix the <No display name /> element names in React DevTools
 3. Github
 4. store.inputVals = [] => store.inputs = [{value: '', ...},{},...]
-5. Fix <unnamed action> in Mobx devtools
+5. Fix < unnamed action > in Mobx devtools
 
 -------------------------
 
