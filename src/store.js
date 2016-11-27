@@ -1,19 +1,22 @@
-import { observable, action, autorun, useStrict } from 'mobx'
+import { observable, action, useStrict } from 'mobx'
 
 useStrict(true)
 
 export const store = observable({
-  inputVals: []
+  inputs: []
 })
 
-export const addInputVal = action('addInputVal', () => {
-  store.inputVals.push('')
-  return store.inputVals.length - 1
-})
+export const addInputVal = action(
+  'addInputVal',
+  () => {
+    store.inputs.push({value: ''})
+    return store.inputs.length - 1
+  }
+)
 
 export const changeInputVal = action(
   'changeInputVal',
-  (index, newVal) => store.inputVals[index] = newVal
+  (index, newVal) => store.inputs[index].value = newVal
 )
 
 export const actions = Object.freeze({
@@ -22,6 +25,6 @@ export const actions = Object.freeze({
 })
 
 // autorun for all inputs
-autorun(() => {
-  console.log(store.inputVals.slice())
-})
+// autorun(() => {
+//   console.log(store.inputs.slice())
+// })

@@ -9,7 +9,7 @@ const LogInput = ({ store, actions, index }) => {
       <input
         className="log-input"
         type="text"
-        value={ store.inputVals[index] }
+        value={ store.inputs[index].value }
         onChange={ e => changeInputVal(index, e.target.value) } />
     </div>
   )
