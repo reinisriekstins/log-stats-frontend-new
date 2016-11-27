@@ -6,7 +6,7 @@ const Accordion = ({ store, actions, children }) => {
     <div className="accordion">
       { children }
     </div>
-  );
+  )
 }
 
 export default observer(Accordion)

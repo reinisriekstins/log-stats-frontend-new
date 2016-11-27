@@ -8,6 +8,10 @@ import { store, actions } from './store'
 import Accordion from './components/Accordion'
 import LogInputRow from './components/LogInputRow'
 
+// for using in browser console
+window.store = store
+window.actions = actions
+
 render(
   <div className="accordion-wrapper">
     <Accordion store={ store } actions={ actions }>
@@ -19,5 +23,4 @@ render(
   document.querySelector('#root')
 )
 
-window.store = store
-window.actions = actions
+

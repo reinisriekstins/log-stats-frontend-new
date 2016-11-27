@@ -22,12 +22,11 @@ const LogInputRow = ({ store, actions }) => {
         />
       )
     }
-
     return logInputs
   }
 
   return (
-  <div className="log-input-row row">
+    <div className="log-input-row row">
       { generateLogInputs(6) }
     </div>
   )
