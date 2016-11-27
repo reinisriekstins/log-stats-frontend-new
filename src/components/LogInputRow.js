@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 
 import LogInput from './LogInput'
 
-const LogInputRow = observer(({ store, actions }) => {
+const LogInputRow = ({ store, actions }) => {
   const { addInputVal } = actions
 
   const generateLogInputs = amount => {
@@ -31,6 +31,6 @@ const LogInputRow = observer(({ store, actions }) => {
       { generateLogInputs(6) }
     </div>
   )
-})
+}
 
-export default LogInputRow
+export default observer(LogInputRow)

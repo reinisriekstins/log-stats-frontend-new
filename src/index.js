@@ -9,7 +9,7 @@ import Accordion from './components/Accordion'
 import LogInputRow from './components/LogInputRow'
 
 render(
-  <div className="bing">
+  <div className="accordion-wrapper">
     <Accordion store={ store } actions={ actions }>
       <LogInputRow store={ store } actions={ actions } />
       <LogInputRow store={ store } actions={ actions } />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-const LogInput = observer(({ store, actions, index }) => {
+const LogInput = ({ store, actions, index }) => {
   const { changeInputVal } = actions
 
   return (
@@ -13,6 +13,6 @@ const LogInput = observer(({ store, actions, index }) => {
         onChange={ e => changeInputVal(index, e.target.value) } />
     </div>
   )
-})
+}
 
-export default LogInput
+export default observer(LogInput)

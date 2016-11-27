@@ -1,10 +1,8 @@
 # TODOS:
 1. Fix the multiple LogInputRow warning:
   Warning: forceUpdate(...): Cannot update during an existing state transition (such as within `render` or another component's constructor). Render methods should be a pure function of props and state; constructor side-effects are an anti-pattern, but can be moved to `componentWillMount`.
-2. Fix the <No display name /> element names in React DevTools
-3. Github
-4. store.inputVals = [] => store.inputs = [{value: '', ...},{},...]
-5. Fix < unnamed action > in Mobx devtools
+2. store.inputVals = [] => store.inputs = [{value: '', ...},{},...]
+3. Fix < unnamed action > in Mobx devtools
 
 -------------------------
 
