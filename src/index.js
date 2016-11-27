@@ -16,7 +16,6 @@ render(
   <div className="accordion-wrapper">
     <Accordion store={ store } actions={ actions }>
       <LogInputRow store={ store } actions={ actions } />
-      <LogInputRow store={ store } actions={ actions } />
     </Accordion>
     <DevTools />
   </div>,
