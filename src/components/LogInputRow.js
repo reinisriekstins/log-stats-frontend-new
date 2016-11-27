@@ -18,7 +18,8 @@ const LogInputRow = observer(({ store, actions }) => {
           actions={ actions }
           index={ index }
           key={ i }
-          i={ i } />
+          i={ i }
+        />
       )
     }
 

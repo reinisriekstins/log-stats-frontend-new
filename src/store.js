@@ -1,4 +1,4 @@
-import { observable, action, useStrict } from 'mobx'
+import { observable, action, autorun, useStrict } from 'mobx'
 
 useStrict(true)
 
@@ -20,8 +20,7 @@ export const actions = Object.freeze({
   changeInputVal
 })
 
-// autorun(() => {
-//   store.inputVals.forEach(i => {
-//     console.log(i)
-//   })
-// })
+// autorun for all inputs
+autorun(() => {
+  console.log(store.inputVals.slice())
+})
