@@ -6,12 +6,13 @@ export const store = observable({
   inputVals: []
 })
 
-export const addInputVal = action(() => {
+export const addInputVal = action('addInputVal', () => {
   store.inputVals.push('')
   return store.inputVals.length - 1
 })
 
 export const changeInputVal = action(
+  'changeInputVal',
   (index, newVal) => store.inputVals[index] = newVal
 )
 
