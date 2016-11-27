@@ -50,6 +50,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "mobx": "^2.6.3",
     "mobx-react": "^3.5.9",
     "react": "^15.4.0",
@@ -86,5 +87,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "proxy": "http://localhost:3001/"
 }
