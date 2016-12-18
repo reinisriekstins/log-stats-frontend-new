@@ -4,30 +4,25 @@ import { observer } from 'mobx-react'
 import LogInput from './LogInput'
 
 const LogInputRow = ({ store, actions }) => {
-  const { addInputVal } = actions
+  const { createInputRow } = actions
 
-  const generateLogInputs = amount => {
-    let logInputs = []
+  const createLogInputs = (amount = 6) => {
+    const inputRowStore = createInputRow(amount)
 
-    for (let i = 0; i < amount; i++) {
-      const index = addInputVal()
-
-      logInputs.push(
-        <LogInput
-          store={ store }
-          actions={ actions }
-          index={ index }
-          key={ i }
-          i={ i }
-        />
-      )
-    }
-    return logInputs
+    return inputRowStore.map((s, i) => (
+      <LogInput
+        store={ store }
+        actions={ actions }
+        stateObj={ s }
+        key={ i }
+        i={ i }
+      />
+    ))
   }
 
   return (
     <div className="log-input-row row">
-      { generateLogInputs(6) }
+      { createLogInputs() }
     </div>
   )
 }
