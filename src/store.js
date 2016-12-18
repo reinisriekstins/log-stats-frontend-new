@@ -1,40 +1,51 @@
 import { observable, action, useStrict } from 'mobx'
-import axios from 'axios'
 
 useStrict(true)
 
 export const store = observable({
-  inputs: []
+  inputRows: []
 })
 
-export const addInputVal = action(
-  'addInputVal',
-  () => {
-    store.inputs.push({
-      value: '',
-      get: ''
-    })
-    return store.inputs.length - 1
+export const createInputRow = action(
+  'createInputRow',
+  (amount) => {
+    if (amount < 1)
+      throw new Error('Invalid store input amount')
+
+    const inputRow = []
+    for (let i = 0; i < amount; i++)
+      inputRow.push(getInitialInputState())
+
+    store.inputRows.push(inputRow)
+
+    return inputRow
   }
 )
 
 export const changeInputVal = action(
   'changeInputVal',
-  (index, newVal) => {
-    store.inputs[index].value = newVal
-    axios.get(`/api/${ newVal }`).then(
-      action(
-        'updateInputData',
-        r => store.inputs[index].get = r.data
-      )
-    )
+  (stateObj, event) => {
+    const { value } = event.target
+    stateObj.value = value
+    // axios.get(`/api/${ newVal }`).then(
+    //   action(
+    //     'updateInputData',
+    //     r => store.inputs[index].get = r.data
+    //   )
+    // )
   }
 )
 
 export const actions = Object.freeze({
-  addInputVal,
+  createInputRow,
   changeInputVal
 })
+
+function getInitialInputState() {
+  return {
+    value: ''
+  }
+}
 
 
 // autorun for all inputs
