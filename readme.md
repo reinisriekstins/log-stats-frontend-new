@@ -1,6 +1,16 @@
 # TODOS:
-1. Fix the multiple LogInputRow warning:
-  Warning: forceUpdate(...): Cannot update during an existing state transition (such as within `render` or another component's constructor). Render methods should be a pure function of props and state; constructor side-effects are an anti-pattern, but can be moved to `componentWillMount`.
+- [ ] add log input value parsing via node url module (see old log-stats-backend)
+- [ ] add ajax requests of log input values to server
+- [ ] make server forward those requests to logs.tf
+- [ ] make server retry n amount of times on failure and forward that info to client
+- [ ] create a DB of logs that someone has requested before and make the server query that DB first
+- [ ] make older logs that use STEAM_ switch to the [] steamd ID format
+-------
+- [ ] Accordion1: Log inputs
+- [ ] Accordion2: Selection of players found in the logs
+- [ ] Accordion3: Interactive charts/ classic logs.tf table view
+- [ ] Save and share charts
+- [ ] Donation ability
 
 -------------------------
 
