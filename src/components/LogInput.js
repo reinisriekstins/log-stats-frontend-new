@@ -1,21 +1,11 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import axios from 'axios'
-import Rx from 'rxjs/Rx'
 
 const LogInput = ({ store, actions, stateObj }) => {
-  const { changeInputVal } = actions
-
-  const getItems = title => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve([title, 'item2', `Another ${ Math.random() }`])
-      }, 500 + (Math.random() * 300))
-    })
-  }
+  const { updateInputVal } = actions
 
   const handleInputChange = e => {
-    changeInputVal(stateObj, e)
+    updateInputVal(stateObj, e)
   }
 /*-------------------------------------*
  *
@@ -26,27 +16,35 @@ const LogInput = ({ store, actions, stateObj }) => {
  * and vice versa
  *
  *-------------------------------------*/
-  let lastQuery = null
-  let lastTimeout = null
-  let nextQueryId = 0
+  // const getItems = title => {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       resolve([title, 'item2', `Another ${ Math.random() }`])
+  //     }, 500 + (Math.random() * 300))
+  //   })
+  // }
 
-  const handleKeyUp = e => {
-    const title = e.target.value
-    if (title === lastQuery) return
-    lastQuery = title
+  // let lastQuery = null
+  // let lastTimeout = null
+  // let nextQueryId = 0
 
-    if (lastTimeout) clearTimeout(lastTimeout)
+  // const handleKeyUp = e => {
+  //   const title = e.target.value
+  //   if (title === lastQuery) return
+  //   lastQuery = title
 
-    let ourQueryId = ++nextQueryId
-    lastTimeout = setTimeout(() => {
-      getItems(title)
-      .then(items => {
-        if (ourQueryId !== nextQueryId) return
+  //   if (lastTimeout) clearTimeout(lastTimeout)
 
-        console.log(items)
-      })
-    }, 500)
-  }
+  //   let ourQueryId = ++nextQueryId
+  //   lastTimeout = setTimeout(() => {
+  //     getItems(title)
+  //     .then(items => {
+  //       if (ourQueryId !== nextQueryId) return
+
+  //       console.log(items)
+  //     })
+  //   }, 500)
+  // }
 
   return (
     <div className="large-2 columns">
@@ -55,7 +53,6 @@ const LogInput = ({ store, actions, stateObj }) => {
         type="text"
         value={ stateObj.value }
         onChange={ handleInputChange }
-        onKeyUp={ handleKeyUp }
       />
     </div>
   )
