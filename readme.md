@@ -5,6 +5,7 @@
 - [ ] make server retry n amount of times on failure and forward that info to client
 - [ ] create a DB of logs that someone has requested before and make the server query that DB first
 - [ ] make older logs that use STEAM_ switch to the [] steamd ID format
+
 -------
 - [ ] Accordion1: Log inputs
 - [ ] Accordion2: Selection of players found in the logs
