@@ -1,10 +1,15 @@
-import { observable, action, useStrict } from 'mobx'
+import {
+  observable,
+  action,
+  computed,
+  useStrict } from 'mobx'
+import { mobxToRx } from 'rx-mobx'
 
 useStrict(true)
 
-export const store = observable({
-  inputRows: []
-})
+export const store = {
+  inputRows: observable([])
+}
 
 export const createInputRow = action(
   'createInputRow',
@@ -14,7 +19,7 @@ export const createInputRow = action(
 
     const inputRow = []
     for (let i = 0; i < amount; i++)
-      inputRow.push(getInitialInputState())
+      inputRow.push(InitialInputState())
 
     store.inputRows.push(inputRow)
 
@@ -22,33 +27,78 @@ export const createInputRow = action(
   }
 )
 
-export const changeInputVal = action(
-  'changeInputVal',
-  (stateObj, event) => {
+export const updateInputVal = action(
+  'updateInputVal',
+  (inputState, event) => {
     const { value } = event.target
-    stateObj.value = value
-    // axios.get(`/api/${ newVal }`).then(
-    //   action(
-    //     'updateInputData',
-    //     r => store.inputs[index].get = r.data
-    //   )
-    // )
+    inputState.value = value
   }
+)
+
+export const updateInputLog = action(
+  'updateInputLog',
+  (inputState, observable$) =>
+    inputState.log = observable$
 )
 
 export const actions = Object.freeze({
   createInputRow,
-  changeInputVal
+  updateInputVal,
+  updateInputLog
 })
 
-function getInitialInputState() {
-  return {
-    value: ''
+/// change this to axios request to server
+const getItems = title => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve([title, 'item2', `Another ${ Math.random() }`])
+    }, 500 + (Math.random() * 300))
+  })
+}
+// axios.get(`/api/${ newVal }`).then(
+//   action(
+//     'updateInputData',
+//     r => store.inputs[index].get = r.data
+//   )
+// )
+
+function InitialInputState() {
+  const inputState = {
+    value: '',
+    log: null,
   }
+
+  bindInputValueToRxObs(inputState)
+
+  return inputState
 }
 
+function bindInputValueToRxObs(inputState) {
+  const mobxComputed = computed(() => inputState.value)
+  return mobxToRx(mobxComputed)
+    .distinctUntilChanged()
+    .debounceTime(300)
+    .switchMap(getItems)
+    // .retry(5)
+    // .catch('asdfasdfas')
+    .subscribe(o$ => updateInputLog(inputState, o$), console.log)
+}
 
 // autorun for all inputs
 // autorun(() => {
-//   console.log(store.inputs.slice())
+//   let slicedStore = store.inputRows
+//     .slice()
+//     .map(r => r
+//       .slice()
+//       .map(({value, log}) => ({
+//         value,
+//         log: (function () {
+//           try {
+//             return log.slice()
+//           } catch (e) {
+//             return log;
+//           }
+//         }())
+//     })))
+//   console.log(slicedStore)
 // })
