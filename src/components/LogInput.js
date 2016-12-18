@@ -14,38 +14,18 @@ const LogInput = ({ store, actions, stateObj }) => {
     })
   }
 
-  function createSubscriber(tag) {
-    return {
-      next(item) {
-        console.log(item)
-      },
-      error(err) {
-        console.log(`${ tag }.error ${ err.stack }`)
-      },
-      complete() {
-        console.log(`${ tag }.complete`)
-      }
-    }
-  }
-
-  let subject$ = new Rx.Subject(
-      // item => console.log(`stream.next ${ item }`),
-      // err => console.log(`stream.error ${ err.stack }`),
-      // () => console.log(`stream.complete`)
-    )
-    .map(e => e.target.value)
-    .filter(v => v !== '')
-    .distinctUntilChanged()
-    .debounceTime(3000)
-    .switchMap(getItems)
-    .do(console.log)
-    .subscribe(createSubscriber('subject$'))
-
   const handleInputChange = e => {
     changeInputVal(stateObj, e)
-    subject$.next(e)
   }
-
+/*-------------------------------------*
+ *
+ * Traditional implementation of debounced AJAX requesting input
+ *
+ * Alternative with RxJS is to derive the AJAX request from
+ * state of inputs by converting mobx observables to RxJS observables
+ * and vice versa
+ *
+ *-------------------------------------*/
   let lastQuery = null
   let lastTimeout = null
   let nextQueryId = 0
@@ -65,7 +45,7 @@ const LogInput = ({ store, actions, stateObj }) => {
 
         console.log(items)
       })
-      }, 500)
+    }, 500)
   }
 
   return (
