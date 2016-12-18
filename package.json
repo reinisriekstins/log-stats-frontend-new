@@ -55,10 +55,13 @@
     "mobx-react": "^3.5.9",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
+    "rx-mobx": "^1.1.1",
     "rxjs": "^5.0.0-rc.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "server": "cd ../log-stat-snew-backend && nodemon ./bin/www",
+    "client": "node scripts/start.js",
+    "start": "npm run client",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
