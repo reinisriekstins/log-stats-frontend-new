@@ -1,59 +1,71 @@
 import React from 'react'
 import { observer } from 'mobx-react'
+import '../fonts/font-awesome-4.7.0/css/font-awesome.css'
 
-const LogInput = ({ store, actions, stateObj }) => {
+const LogInput = ({ actions, state }) => {
   const { updateInputVal } = actions
+  const { status } = state
 
   const handleInputChange = e => {
-    updateInputVal(stateObj, e)
+    updateInputVal(state, e)
   }
-/*-------------------------------------*
- *
- * Traditional implementation of debounced AJAX requesting input
- *
- * Alternative with RxJS is to derive the AJAX request from
- * state of inputs by converting mobx observables to RxJS observables
- * and vice versa
- *
- *-------------------------------------*/
-  // const getItems = title => {
-  //   return new Promise((resolve, reject) => {
-  //     setTimeout(() => {
-  //       resolve([title, 'item2', `Another ${ Math.random() }`])
-  //     }, 500 + (Math.random() * 300))
-  //   })
-  // }
 
-  // let lastQuery = null
-  // let lastTimeout = null
-  // let nextQueryId = 0
+  const iconStyle = {
+    position: 'relative',
+    top: '-50px',
+    right: '-75%',
+    color: 'lightgrey'
+  }
 
-  // const handleKeyUp = e => {
-  //   const title = e.target.value
-  //   if (title === lastQuery) return
-  //   lastQuery = title
+  const foundation = {
+    success: '#3adb76',
+    warning: '#ffae00',
+    alert: '#cc4b37'
+  }
 
-  //   if (lastTimeout) clearTimeout(lastTimeout)
-
-  //   let ourQueryId = ++nextQueryId
-  //   lastTimeout = setTimeout(() => {
-  //     getItems(title)
-  //     .then(items => {
-  //       if (ourQueryId !== nextQueryId) return
-
-  //       console.log(items)
-  //     })
-  //   }, 500)
-  // }
+  const inputStyles = {
+    initial: {},
+    pending: {},
+    success: {
+      boxShadow: `0 0 3px ${ foundation.success }`,
+      borderColor: foundation.success
+    },
+    warning: {
+      boxShadow: `0 0 3px ${ foundation.warning }`,
+      borderColor: foundation.warning
+    },
+    alert: {
+      boxShadow: `0 0 3px ${ foundation.alert }`,
+      borderColor: foundation.alert
+    }
+  }
 
   return (
-    <div className="large-2 columns">
+    <div className='large-2 columns'>
       <input
-        className="log-input"
-        type="text"
-        value={ stateObj.value }
+        className='log-input'
+        type='text'
+        value={ state.value }
         onChange={ handleInputChange }
+        style={ inputStyles[status] }
       />
+
+      {
+        (status === 'warning' || status === 'alert') &&
+        <button
+          style={ iconStyle }
+          title='Click to retry sending the request'
+          onClick={() => actions.updateInputStatus(state, 'pending')} >
+          <i className='fa fa-refresh fa-2x' ></i>
+        </button>
+      }
+      {
+        status === 'pending' &&
+        <i
+          className='fa fa-circle-o-notch fa-spin fa-2x fa-fw'
+          style={ iconStyle } >
+        </i>
+      }
     </div>
   )
 }
