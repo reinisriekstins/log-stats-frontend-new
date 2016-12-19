@@ -13,7 +13,7 @@ const LogInputRow = ({ store, actions }) => {
       <LogInput
         store={ store }
         actions={ actions }
-        stateObj={ s }
+        state={ s }
         key={ i }
         i={ i }
       />
@@ -21,7 +21,7 @@ const LogInputRow = ({ store, actions }) => {
   }
 
   return (
-    <div className="log-input-row row">
+    <div className='log-input-row row' >
       { createLogInputs() }
     </div>
   )
