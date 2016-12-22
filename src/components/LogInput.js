@@ -1,43 +1,77 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import '../fonts/font-awesome-4.7.0/css/font-awesome.css'
+import Spinner from 'react-spin'
+import 'material-design-icons/iconfont/material-icons.css'
 
 const LogInput = ({ actions, state }) => {
-  const { updateInputVal } = actions
+  const {
+    updateInputVal,
+    updateInputStatus
+  } = actions
   const { status } = state
 
-  const handleInputChange = e => {
-    updateInputVal(state, e)
+  const colors = {
+    success: '#3adb76',
+    warning: '#ffae00',
+    alert: '#cc4b37',
+    lightgrey: '#d3d3d3'
   }
 
   const iconStyle = {
     position: 'relative',
-    top: '-50px',
-    right: '-75%',
-    color: 'lightgrey'
+    top: '-51px',
+    right: '-80%',
+    color: colors.lightgrey
   }
 
-  const foundation = {
-    success: '#3adb76',
-    warning: '#ffae00',
-    alert: '#cc4b37'
+  const spinConfig = {
+    lines: 13,               // The number of lines to draw
+    length: 28,              // The length of each line
+    width: 14,               // The line thickness
+    radius: 42,              // The radius of the inner circle
+    scale: 0.18,             // Scales overall size of the spinner
+    corners: 1,              // Corner roundness (0..1)
+    color: colors.lightgrey, // #rgb or #rrggbb or array of colors
+    opacity: 0.25,           // Opacity of the lines
+    rotate: 0,               // The rotation offset
+    direction: 1,            // 1: clockwise, -1: counterclockwise
+    speed: 1,                // Rounds per second
+    trail: 60,               // Afterglow percentage
+    fps: 20,                 // Frames per second when using setTimeout() as a fallback for CSS
+    zIndex: 2e9,             // The z-index (defaults to 2000000000)
+    className: 'spinner',    // The CSS class to assign to the spinner
+    top: '-35px',            // Top position relative to parent
+    left: '85%',             // Left position relative to parent
+    shadow: false,           // Whether to render a shadow
+    hwaccel: false,          // Whether to use hardware acceleration
+    position: 'relative',    // Element positioning
   }
 
   const inputStyles = {
     initial: {},
     pending: {},
     success: {
-      boxShadow: `0 0 3px ${ foundation.success }`,
-      borderColor: foundation.success
+      boxShadow: `0 0 3px ${ colors.success }`,
+      borderColor: colors.success
     },
     warning: {
-      boxShadow: `0 0 3px ${ foundation.warning }`,
-      borderColor: foundation.warning
+      boxShadow: `0 0 3px ${ colors.warning }`,
+      borderColor: colors.warning
     },
     alert: {
-      boxShadow: `0 0 3px ${ foundation.alert }`,
-      borderColor: foundation.alert
+      boxShadow: `0 0 3px ${ colors.alert }`,
+      borderColor: colors.alert
     }
+  }
+
+  const handleClick = e => {
+    updateInputStatus(state, 'pending')
+
+    // a hacky way to make mobx reemit
+    // the input value
+    const value = state.value
+    updateInputVal(state, Math.random().toString())
+    updateInputVal(state, value)
   }
 
   return (
@@ -46,25 +80,24 @@ const LogInput = ({ actions, state }) => {
         className='log-input'
         type='text'
         value={ state.value }
-        onChange={ handleInputChange }
-        style={ inputStyles[status] }
-      />
-
+        onChange={ e => updateInputVal(state, e) }
+        style={ inputStyles[status] }/>
       {
-        (status === 'warning' || status === 'alert') &&
-        <button
-          style={ iconStyle }
-          title='Click to retry sending the request'
-          onClick={() => actions.updateInputStatus(state, 'pending')} >
-          <i className='fa fa-refresh fa-2x' ></i>
-        </button>
+      (status === 'warning' || status === 'alert') &&
+      <button
+        style={ iconStyle }
+        title='Retry'
+        onClick={ handleClick } >
+        <i
+          className="material-icons"
+          style={{fontSize:'2em'}}>
+          refresh
+        </i>
+      </button>
       }
       {
-        status === 'pending' &&
-        <i
-          className='fa fa-circle-o-notch fa-spin fa-2x fa-fw'
-          style={ iconStyle } >
-        </i>
+      status === 'pending' &&
+      <Spinner config={ spinConfig } />
       }
     </div>
   )

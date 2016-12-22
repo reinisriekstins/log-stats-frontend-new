@@ -11,7 +11,6 @@ const LogInputRow = ({ store, actions }) => {
 
     return inputRowStore.map((s, i) => (
       <LogInput
-        store={ store }
         actions={ actions }
         state={ s }
         key={ i }

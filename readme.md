@@ -1,14 +1,17 @@
 # TODOS:
+Accordion1:
 - [x] client side validation + add log input value parsing via node url module (see old log-stats-backend)
 - [x] add ajax requests of log input values to server
 - [x] add input state statuses
-- [ ] bind ajax results to input state status change,
-      bind refresh button to reemit the change event to resend ajax request
-- [ ] bind invalid input value to change input state status to warning
-
-- [ ] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js (looks better + no spinner wobble)
+- [x] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js (looks better + no spinner wobble)
+- [x] bind ajax results to input state status change,
+- [x] bind refresh button to reemit the change event to resend ajax request
+- [x] bind invalid input value to change input state status to warning
+- [x] make input value '12345#54321' (with a hash) validate correctly
 - [ ] server side validation + make server forward those requests to logs.tf
 - [ ] make server retry n amount of times on failure and forward that info to client
+
+Accordion3:
 - [ ] create a DB of logs that someone has requested before and make the server query that DB first
 - [ ] make older logs that use STEAM_ switch to the [ ] steamd ID format
 
@@ -18,6 +21,12 @@
 - [ ] Accordion3: Interactive charts/ classic logs.tf table view
 - [ ] Save and share charts
 - [ ] Donation ability
+
+# Currently irrelevant todos:
+- [ ] style retry button and spinner to be more similar, make them look better on smaller screens
+- [ ] make Accordion1 more responsive
+- [ ] add ability to import and export LogInput values to/from JSON file
+- [ ] fix log input height increase when in 'warning' state
 
 -------------------------
 
