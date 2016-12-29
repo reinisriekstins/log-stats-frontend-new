@@ -7,6 +7,7 @@ import './styles/foundation.css'
 import { store, actions } from './store'
 import Accordion from './components/Accordion'
 import LogInputRow from './components/LogInputRow'
+import Panel from './components/Panel'
 
 // for using in browser console
 window.store = store
@@ -17,6 +18,7 @@ render(
     <Accordion store={ store } actions={ actions }>
       <LogInputRow store={ store } actions={ actions } />
       <LogInputRow store={ store } actions={ actions } />
+      <Panel store={ store } actions={ actions } />
     </Accordion>
     <DevTools />
   </div>,
