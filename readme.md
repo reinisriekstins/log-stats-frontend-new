@@ -8,8 +8,11 @@ Accordion1:
 - [x] bind refresh button to reemit the change event to resend ajax request
 - [x] bind invalid input value to change input state status to warning
 - [x] make input value '12345#54321' (with a hash) validate correctly
-- [ ] server side validation + make server forward those requests to logs.tf
-- [ ] make server retry n amount of times on failure and forward that info to client
+- [x] server side validation + make server forward those requests to logs.tf
+- [x] make server retry n amount of times on failure and forward that info to client
+- [ ] make input state update after a failed http request, for example: 345, 234
+- [ ] embed map and time data into the log object on the server
+- [ ] check for multiple inputs with the same value. if so, set state on warning, don't send http request
 
 Accordion3:
 - [ ] create a DB of logs that someone has requested before and make the server query that DB first
@@ -27,6 +30,12 @@ Accordion3:
 - [ ] make Accordion1 more responsive
 - [ ] add ability to import and export LogInput values to/from JSON file
 - [ ] fix log input height increase when in 'warning' state
+- [ ] show some kind of error/feedback message if input state is warning or alert
+- [ ] put all the code in backend/log/helpers.js back to log.js router
+- [ ] fix the bug where after sending a non existent logId (234 or 345), the input glitches out and dies
+- [ ] if input value is empty, set it's state to initial
+- [ ] add placeholders to 1st row inputs displaying correct ways of inputing the log
+- [ ] add ability to add input rows, add ability to remove input rows (except 1st one)
 
 -------------------------
 
