@@ -3,10 +3,9 @@ import {
   action,
   computed,
   useStrict } from 'mobx'
-import {
-  isObject,
-  isError,
-  isString } from 'lodash'
+import isObject from 'lodash/fp/isObject'
+import isError from 'lodash/fp/isError'
+import isString from 'lodash/fp/isString'
 import { Observable } from 'rxjs/Rx'
 import { mobxToRx } from 'rx-mobx'
 import axios from 'axios'
@@ -64,10 +63,10 @@ export const createInputRow = action(
     // return the path part of the url else return a new Error
     const validateInputValue = s => {
       const
-        pathRegex = /^\/?\d{5,}$/g,
-        pathHashRegex = /^\/?\d{1,}(#\d*)?$/g,
-        hostRegex = /^(www\.)?logs\.tf$/g,
-        hostPathHashRegex = /^((www\.)?logs\.tf)?\/?\d{5,}(#\d*)?$/g
+        pathRegex = /^\/?\d+$/g,
+        pathHashRegex = /^\/?\d+(#\d*)?$/g,
+        hostRegex = /^(www\.)?logs\.tf$/g
+        // hostPathHashRegex = /^((www\.)?logs\.tf)?\/?\d+(#\d*)?$/g
 
       // validation step 1
       if (pathHashRegex.test(s)) return s
@@ -88,7 +87,7 @@ export const createInputRow = action(
 
     const validateResponseData = x => {
       if (isObject(x)) return x
-      else return new Error(x)
+      return new Error(x)
     }
 
     if (amount < 1)
@@ -104,12 +103,13 @@ export const createInputRow = action(
         .debounceTime(500)
         .map(validateInputValue)
 
-      const valid$ = Observable
+      // stream of valid$ observables
+      Observable
         .from(initial$)
         .filter(x => !isError(x))
-        .switchMap(x => axios(`/api/${ x }`))
+        .switchMap(x => axios(`/log/${ x }`))
         .map(x => validateResponseData(x.data))
-        .retry(5)
+        ///.retry(2)
         .subscribe(
           data => {
             updateInputLog(inputState, data)
@@ -122,7 +122,8 @@ export const createInputRow = action(
           }
         )
 
-      const invalid$ = Observable
+      // stream of invalid$ observables
+      Observable
         .from(initial$)
         .filter(isError)
         .subscribe(x => {
