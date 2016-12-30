@@ -15,6 +15,9 @@ useStrict(true)
 
 export const store = {
   inputRows: observable([])
+  ,playerSelectPanel: observable({
+    logs: []
+  })
 }
 
 export const updateInputVal = action(
@@ -139,11 +142,19 @@ export const createInputRow = action(
   }
 )
 
+export const generate = action(
+  'generate',
+  (inputStates) => {
+    inputStates.forEach(s => store.playerSelectPanel.logs.push(s.log))
+  }
+)
+
 export const actions = Object.freeze({
   createInputRow,
   updateInputVal,
   updateInputLog,
-  updateInputStatus
+  updateInputStatus,
+  generate
 })
 
 // autorun for all inputs

@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import isObject from 'lodash/fp/isObject'
 
-const Panel = ({ store, actions, children }) => {
+const Panel = ({ store, actions }) => {
   const { inputRows } = store
 
   const getPendingInputCount = () => {
@@ -29,6 +29,7 @@ const Panel = ({ store, actions, children }) => {
       alert('Please wait for any pending inputs to resolve.')
     else {
       // open Accordion2, generate player data
+      actions.generate(successful)
     }
   }
 
