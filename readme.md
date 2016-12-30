@@ -1,4 +1,11 @@
 # TODOS:
+Server:
+- [x] server side validation + make server forward those requests to logs.tf
+- [x] make server retry n amount of times on failure and forward that info to client
+- [x] embed map and time data into the log object on the server
+- [ ] make older logs that use STEAM_ switch to the [ ] steamd ID format
+- [ ] create a DB of logs that someone has requested before and make the server query that DB first
+
 Accordion1:
 - [x] client side validation + add log input value parsing via node url module (see old log-stats-backend)
 - [x] add ajax requests of log input values to server
@@ -8,15 +15,18 @@ Accordion1:
 - [x] bind refresh button to reemit the change event to resend ajax request
 - [x] bind invalid input value to change input state status to warning
 - [x] make input value '12345#54321' (with a hash) validate correctly
-- [x] server side validation + make server forward those requests to logs.tf
-- [x] make server retry n amount of times on failure and forward that info to client
 - [ ] make input state update after a failed http request, for example: 345, 234
-- [ ] embed map and time data into the log object on the server
 - [ ] check for multiple inputs with the same value. if so, set state on warning, don't send http request
 
+Accordion2:
+- [ ] add a cool player selection panel. Potential candidates:
+ * http://pablofierro.github.io/react-drag-select/
+ * http://jedwatson.github.io/react-select/#react-select-3--value
+
 Accordion3:
-- [ ] create a DB of logs that someone has requested before and make the server query that DB first
-- [ ] make older logs that use STEAM_ switch to the [ ] steamd ID format
+- [ ] choose charting library
+ * C3
+
 
 -------
 - [ ] Accordion1: Log inputs
@@ -36,6 +46,11 @@ Accordion3:
 - [ ] if input value is empty, set it's state to initial
 - [ ] add placeholders to 1st row inputs displaying correct ways of inputing the log
 - [ ] add ability to add input rows, add ability to remove input rows (except 1st one)
+- [ ] rewrite it using react foundation?
+ * https://react.foundation/
+ * http://webrafter.com/opensource/react-foundation-apps/tabs
+- [ ] switch from accordions to tabs
+
 
 -------------------------
 
