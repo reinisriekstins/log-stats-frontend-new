@@ -3,20 +3,62 @@ import {
   action,
   computed,
   useStrict } from 'mobx'
-import isObject from 'lodash/fp/isObject'
-import isError from 'lodash/fp/isError'
-import isString from 'lodash/fp/isString'
 import { Observable } from 'rxjs/Rx'
 import { mobxToRx } from 'rx-mobx'
 import axios from 'axios'
 import url from 'url'
 
+import isObject from 'lodash/fp/isObject'
+import isError from 'lodash/fp/isError'
+import isString from 'lodash/fp/isString'
+import difference from 'lodash/fp/difference'
+import filter from 'lodash/fp/filter'
+import reduce from 'lodash/fp/reduce'
+import cappedArgMap from 'lodash/fp/map'
+const map = cappedArgMap.convert({ cap: false })
+
+import logUtils from './lib/logUtils'
+
 useStrict(true)
 
 export const store = {
-  inputRows: observable([])
-  ,playerSelectPanel: observable({
-    logs: []
+  inputRows: observable([]),
+  playerSelectPanel: observable({
+    // flatten inputRows and only keep
+    // elements that are objects
+    get inputStates() {
+      return reduce((a,b) => {
+        b.forEach(x => isObject(x) && a.push(x))
+        return a
+      }, [])(store.inputRows)
+    },
+    get successful() {
+      const { inputStates } =
+        store.playerSelectPanel
+      return filter(s =>
+        s.status === 'success')(inputStates)
+    },
+    get pending() {
+      const { inputStates } =
+        store.playerSelectPanel
+      return filter(s =>
+        s.status === 'pending')(inputStates)
+    },
+    logs: [],
+    players: {
+      get all() {
+        const { logs } =
+          store.playerSelectPanel
+        return logUtils
+          .getPlayers(logs)
+      },
+      get unselected() {
+        const { all, selected } =
+          store.playerSelectPanel.players
+        return difference(all, selected)
+      },
+      selected: []
+    }
   })
 }
 
@@ -142,10 +184,12 @@ export const createInputRow = action(
   }
 )
 
-export const generate = action(
-  'generate',
-  (inputStates) => {
-    inputStates.forEach(s => store.playerSelectPanel.logs.push(s.log))
+export const generateLogs = action(
+  'generateLogs',
+  () => {
+    const { playerSelectPanel } = store
+    playerSelectPanel.logs =
+      map(s => s.log)(playerSelectPanel.successful)
   }
 )
 
@@ -154,7 +198,7 @@ export const actions = Object.freeze({
   updateInputVal,
   updateInputLog,
   updateInputStatus,
-  generate
+  generateLogs
 })
 
 // autorun for all inputs
