@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import DevTools from 'mobx-react-devtools'
 
 import './styles/foundation.css'
+import 'material-design-icons/iconfont/material-icons.css'
 
 import { store, actions } from './store'
 import Accordion from './components/Accordion'
