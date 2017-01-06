@@ -3,14 +3,15 @@ Server:
 - [x] server side validation + make server forward those requests to logs.tf
 - [x] make server retry n amount of times on failure and forward that info to client
 - [x] embed map and time data into the log object on the server
-- [ ] make older logs that use STEAM_ switch to the [ ] steamd ID format
+- [ ] convert the old steam IDs from older logs to steam 3 IDs
 - [ ] create a DB of logs that someone has requested before and make the server query that DB first
 
 Accordion1:
 - [x] client side validation + add log input value parsing via node url module (see old log-stats-backend)
 - [x] add ajax requests of log input values to server
 - [x] add input state statuses
-- [x] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js (looks better + no spinner wobble)
+- [x] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js
+      (looks better + no spinner wobble)
 - [x] bind ajax results to input state status change,
 - [x] bind refresh button to reemit the change event to resend ajax request
 - [x] bind invalid input value to change input state status to warning
@@ -22,6 +23,12 @@ Accordion2:
 - [ ] add a cool player selection panel. Potential candidates:
  * http://pablofierro.github.io/react-drag-select/
  * http://jedwatson.github.io/react-select/#react-select-3--value
+- [ ] add a search bar to filter by player name or steam id
+- [ ] add a select all button
+- [ ] add sorting to the table
+- [ ] add a computed property to store, that stores log players, instead of computing them directly from the component
+- [ ] make the tables' size match users viewport height, with a fixed header. see: http://stackoverflow.com/questions/17584702/how-to-add-a-scrollbar-to-an-html5-table
+- [ ] make the table components more general purpose
 
 Accordion3:
 - [ ] choose charting library
