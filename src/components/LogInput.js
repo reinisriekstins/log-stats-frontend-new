@@ -1,7 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import Spinner from 'react-spin'
-import 'material-design-icons/iconfont/material-icons.css'
 
 const LogInput = ({ actions, state }) => {
   const {
