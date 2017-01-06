@@ -17,6 +17,7 @@ Accordion1:
 - [x] make input value '12345#54321' (with a hash) validate correctly
 - [ ] make input state update after a failed http request, for example: 345, 234
 - [ ] check for multiple inputs with the same value. if so, set state on warning, don't send http request
+- [ ] rewrite the rx-mobx conversion part with mobx-utils
 
 Accordion2:
 - [ ] add a cool player selection panel. Potential candidates:
