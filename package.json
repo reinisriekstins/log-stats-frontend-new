@@ -57,7 +57,7 @@
     "mobx-react": "^3.5.9",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "react-selectable-fast": "^1.2.0",
+    "react-drag-select-table": "^1.1.7",
     "rx-mobx": "^1.1.1",
     "rxjs": "^5.0.0-rc.4"
   },
