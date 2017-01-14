@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Rx'
 import { mobxToRx } from 'rx-mobx'
 import axios from 'axios'
 import url from 'url'
-
 import isObject from 'lodash/fp/isObject'
 import isError from 'lodash/fp/isError'
 import isString from 'lodash/fp/isString'
@@ -23,7 +22,7 @@ useStrict(true)
 
 export const store = {
   inputRows: observable([]),
-  playerSelectPanel: observable({
+  playerSelect: observable({
     // flatten inputRows and only keep
     // elements that are objects
     get inputStates() {
@@ -34,13 +33,13 @@ export const store = {
     },
     get successful() {
       const { inputStates } =
-        store.playerSelectPanel
+        store.playerSelect
       return filter(s =>
         s.status === 'success')(inputStates)
     },
     get pending() {
       const { inputStates } =
-        store.playerSelectPanel
+        store.playerSelect
       return filter(s =>
         s.status === 'pending')(inputStates)
     },
@@ -48,9 +47,8 @@ export const store = {
     players: {
       get all() {
         const { logs } =
-          store.playerSelectPanel
-        return logUtils
-          .getPlayers(logs)
+          store.playerSelect
+        return logUtils.getPlayers(logs)
       },
       get unselected() {
         const { all, selected } =
@@ -187,9 +185,9 @@ export const createInputRow = action(
 export const generateLogs = action(
   'generateLogs',
   () => {
-    const { playerSelectPanel } = store
-    playerSelectPanel.logs =
-      map(s => s.log)(playerSelectPanel.successful)
+    const { playerSelect } = store
+    playerSelect.logs =
+      map(s => s.log)(playerSelect.successful)
   }
 )
 

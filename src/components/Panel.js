@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 
 const Panel = ({ store, actions }) => {
-  const { successful, pending } = store.playerSelectPanel
+  const { successful, pending } = store.playerSelect
 
   const tryGenerateLogs = () => {
     if ( successful.length < 2 )
