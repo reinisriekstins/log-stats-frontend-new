@@ -16,7 +16,7 @@ const Panel = ({ store, actions }) => {
   }
 
   return (
-    <div>
+    <div className="row">
       <button
         className="button"
         onClick={ tryGenerateLogs }>
