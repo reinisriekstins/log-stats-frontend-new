@@ -7,7 +7,6 @@ import { Observable } from 'rxjs/Rx'
 import { mobxToRx } from 'rx-mobx'
 import axios from 'axios'
 import url from 'url'
-
 import isObject from 'lodash/fp/isObject'
 import isError from 'lodash/fp/isError'
 import isString from 'lodash/fp/isString'
@@ -16,7 +15,6 @@ import filter from 'lodash/fp/filter'
 import reduce from 'lodash/fp/reduce'
 import cappedArgMap from 'lodash/fp/map'
 const map = cappedArgMap.convert({ cap: false })
-
 import logUtils from './lib/logUtils'
 
 useStrict(true)
@@ -47,17 +45,17 @@ export const store = {
     logs: [],
     players: {
       get all() {
-        const { logs } =
-          store.playerSelectPanel
-        return logUtils
-          .getPlayers(logs)
+        const { logs } = store.playerSelectPanel
+        return logUtils.getPlayers(logs)
       },
-      get unselected() {
-        const { all, selected } =
-          store.playerSelectPanel.players
-        return difference(all, selected)
-      },
-      selected: []
+      // unchosen: CreateStore(
+      //   store.playerSelectPanel.players.all
+      // ),
+      // get chosen() {
+      //   const { all, chosen } =
+      //     store.playerSelectPanel.players
+      //   return difference(all, selected)
+      // }
     }
   })
 }
@@ -200,22 +198,3 @@ export const actions = Object.freeze({
   updateInputStatus,
   generateLogs
 })
-
-// autorun for all inputs
-// autorun(() => {
-//   let slicedStore = store.inputRows
-//     .slice()
-//     .map(r => r
-//       .slice()
-//       .map(({value, log}) => ({
-//         value,
-//         log: (function () {
-//           try {
-//             return log.slice()
-//           } catch (e) {
-//             return log;
-//           }
-//         }())
-//     })))
-//   console.log(slicedStore)
-// })
