@@ -8,8 +8,15 @@ import {
   Tr
 } from 'react-drag-select-table'
 
-const PlayerSelectTable = ({ store, actions, tableStore }) => {
-  const { all } = store.playerSelectPanel.players
+const PlayerSelectTable = props => {
+  let {
+    store,
+    tableStore,
+    onTrClick = () => {},
+    onTrMouseDown = () => {}
+  } = props,
+  { all } = store.playerSelectPanel.players
+
   if (!tableStore) tableStore = CreateStore(all)
 
   return (
@@ -38,8 +45,10 @@ const PlayerSelectTable = ({ store, actions, tableStore }) => {
                 key={ i }
                 store={ tableStore }
                 state={ player }
-                i={ i }>
-                <td>{ i }</td>
+                i={ i }
+                onClick={ () => onTrClick() }
+                onMouseDown={ () => onTrMouseDown() }>
+                <td>{ i+1 }</td>
                 <td>{ steamId }</td>
                 <td
                   title={ names.map(obj => obj.name).join(',\n') }>
@@ -49,6 +58,14 @@ const PlayerSelectTable = ({ store, actions, tableStore }) => {
               </Tr>
             )
           })(filtered)
+        )
+        else if ( !tableStore.all.length ) return (
+          <tr>
+            <td></td>
+            <td>Empty.</td>
+            <td></td>
+            <td></td>
+          </tr>
         )
         return (
           <tr>
