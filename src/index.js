@@ -14,6 +14,11 @@ import AccordContent2 from './components/AccordContent2'
 window.store = store
 window.actions = actions
 
+const { createInputRow } = actions
+
+createInputRow(5)
+createInputRow(5)
+
 render(
   <div className="accordion-wrapper">
     <Accordion>
@@ -22,7 +27,7 @@ render(
     <Accordion>
       <AccordContent2 store={ store } actions={ actions } />
     </Accordion>
-    <DevTools />
+    { /*<DevTools />*/ }
   </div>,
   document.querySelector('#root')
 )

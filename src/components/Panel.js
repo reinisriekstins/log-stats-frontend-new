@@ -3,6 +3,7 @@ import { observer } from 'mobx-react'
 
 const Panel = ({ store, actions }) => {
   const { successful, pending } = store.playerSelectPanel
+  const { createInputRow, generateLogs } = actions
 
   const tryGenerateLogs = () => {
     if ( successful.length < 2 )
@@ -11,7 +12,7 @@ const Panel = ({ store, actions }) => {
       alert('Please wait for any pending inputs to resolve.')
     else {
       // open Accordion2, generate player data
-      actions.generateLogs()
+      generateLogs()
     }
   }
 
@@ -23,7 +24,11 @@ const Panel = ({ store, actions }) => {
         Generate
       </button>
       <button className="button">Import</button>
-      <button className="button">Add Row</button>
+      <button
+        className="button"
+        onClick={ () => createInputRow(5) }>
+        Add Row
+      </button>
     </div>
   )
 }

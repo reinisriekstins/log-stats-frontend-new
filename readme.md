@@ -10,8 +10,7 @@ Accordion1:
 - [x] client side validation + add log input value parsing via node url module (see old log-stats-backend)
 - [x] add ajax requests of log input values to server
 - [x] add input state statuses
-- [x] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js
-      (looks better + no spinner wobble)
+- [x] switch font-awesome icons for foundation-icons/ material-design-icons + spin.js (looks better + no spinner wobble)
 - [x] bind ajax results to input state status change,
 - [x] bind refresh button to reemit the change event to resend ajax request
 - [x] bind invalid input value to change input state status to warning
@@ -20,15 +19,14 @@ Accordion1:
 - [ ] check for multiple inputs with the same value. if so, set state on warning, don't send http request
 
 Accordion2:
-- [ ] add a cool player selection panel. Potential candidates:
- * http://pablofierro.github.io/react-drag-select/
- * http://jedwatson.github.io/react-select/#react-select-3--value
-- [ ] add a search bar to filter by player name or steam id
-- [ ] add a select all button
+- [x] add a cool player selection panel. (made own npm package: react-drag-select-table)
+- [x] add a search bar to filter by player name or steam id
+- [x] add a select all button
 - [ ] add sorting to the table
 - [ ] add a computed property to store, that stores log players, instead of computing them directly from the component
 - [ ] make the tables' size match users viewport height, with a fixed header. see: http://stackoverflow.com/questions/17584702/how-to-add-a-scrollbar-to-an-html5-table
-- [ ] make the table components more general purpose
+- [x] make the table components more general purpose
+- [ ] fix being able to make a selection in both tables by clickling the "select all" button
 
 Accordion3:
 - [ ] choose charting library
@@ -50,9 +48,9 @@ Accordion3:
 - [ ] show some kind of error/feedback message if input state is warning or alert
 - [ ] put all the code in backend/log/helpers.js back to log.js router
 - [ ] fix the bug where after sending a non existent logId (234 or 345), the input glitches out and dies
-- [ ] if input value is empty, set it's state to initial
+- [x] if input value is empty, set it's state to initial
 - [ ] add placeholders to 1st row inputs displaying correct ways of inputing the log
-- [ ] add ability to add input rows, add ability to remove input rows (except 1st one)
+- [x] add ability to add input rows, add ability to remove input rows (except 1st one)
 - [ ] rewrite it using react foundation?
  * https://react.foundation/
  * http://webrafter.com/opensource/react-foundation-apps/tabs

@@ -10,6 +10,7 @@ import url from 'url'
 import isObject from 'lodash/fp/isObject'
 import isError from 'lodash/fp/isError'
 import isString from 'lodash/fp/isString'
+import isArrayLike from 'lodash/fp/isArrayLike'
 import difference from 'lodash/fp/difference'
 import filter from 'lodash/fp/filter'
 import reduce from 'lodash/fp/reduce'
@@ -48,6 +49,7 @@ export const store = {
         const { logs } = store.playerSelectPanel
         return logUtils.getPlayers(logs)
       },
+      chosen: []
       // unchosen: CreateStore(
       //   store.playerSelectPanel.players.all
       // ),
@@ -142,7 +144,16 @@ export const createInputRow = action(
 
       // bind inputState.value to Rx.Observable
       const initial$ = mobxToRx(computed(() => inputState.value))
-        .do(() => updateInputStatus(inputState, 'pending'))
+        .do(() => {
+          if ( inputState.value !== '')
+            updateInputStatus(inputState, 'pending')
+          else {
+            updateInputStatus(inputState, 'initial')
+            updateInputLog(inputState, null)
+          }
+        })
+        // filter out empty inputs
+        .filter(x => x !== '')
         .debounceTime(500)
         .map(validateInputValue)
 
@@ -182,6 +193,14 @@ export const createInputRow = action(
   }
 )
 
+export const deleteInputRow = action(
+  'deleteInputRow',
+  row => {
+    const { inputRows } = store
+    inputRows.splice(inputRows.indexOf(row), 1)
+  }
+)
+
 export const generateLogs = action(
   'generateLogs',
   () => {
@@ -191,10 +210,23 @@ export const generateLogs = action(
   }
 )
 
+export const assignChosenPlayersTo = action(
+  'assignChosenPlayersTo',
+  arr => {
+    // console.log(arr)
+    if ( isArrayLike(arr) )
+      store.playerSelectPanel.players.chosen = arr
+    else
+      throw new Error('Can\'t rereference to non array.')
+  }
+)
+
 export const actions = Object.freeze({
   createInputRow,
+  deleteInputRow,
   updateInputVal,
   updateInputLog,
   updateInputStatus,
-  generateLogs
+  generateLogs,
+  assignChosenPlayersTo
 })
