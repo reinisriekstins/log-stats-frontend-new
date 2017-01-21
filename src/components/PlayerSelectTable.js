@@ -8,6 +8,30 @@ import {
   Tr
 } from 'react-drag-select-table'
 
+// for table sorting
+// import IconMaterial from './IconMaterial'
+// const Th = props => {
+//   const { children, state } = props
+
+//   return (
+//     <th>
+//       { children }
+//       {(() => {
+//         if ( state.sorted )
+//           return (
+//             <button type="button">
+//               <IconMaterial style={{ position: 'absolute' }}>
+//               { state.sorted === 'asc' && 'arrow_drop_down' }
+//               { state.sorted !== 'asc' && 'arrow_drop_up' }
+//               </IconMaterial>
+//             </button>
+//           )
+//       })()}
+
+//     </th>
+//   )
+// }
+
 const PlayerSelectTable = props => {
   let {
     store,
@@ -70,7 +94,7 @@ const PlayerSelectTable = props => {
         return (
           <tr>
             <td></td>
-            <td>None found.</td>
+            <td style={{ textAlign: 'center' }}>None found.</td>
             <td></td>
             <td></td>
           </tr>
