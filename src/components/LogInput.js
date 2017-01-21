@@ -89,7 +89,7 @@ const LogInput = ({ actions, state }) => {
         onClick={ handleClick } >
         <i
           className="material-icons"
-          style={{fontSize:'2em'}}>
+          style={{ fontSize:'2em' }}>
           refresh
         </i>
       </button>
