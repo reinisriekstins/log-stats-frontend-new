@@ -34,6 +34,8 @@ const AccordContent2 = ({ store, actions }) => {
     unchosenTable = CreateTableObj(all, filterProps),
     chosenTable = CreateTableObj([], filterProps)
 
+  actions.assignChosenPlayersTo(chosenTable.store.all)
+
   const transferPlayers = () => {
     if ( unchosenTable.selected.length ) {
       unchosenTable.selected.forEach(player => {
@@ -51,7 +53,7 @@ const AccordContent2 = ({ store, actions }) => {
       chosenTable.emptySelected()
     }
     else {
-      // show modal, saying that nothing is selected
+      /// show modal, saying that nothing is selected
       alert('No players selected.')
     }
   }
@@ -61,7 +63,7 @@ const AccordContent2 = ({ store, actions }) => {
       <div className="large-5 columns">
         <PlayerSelectTableExtras
           store={ store }
-          tableStore={ unchosenTable.store } />
+          tableStore={ unchosenTable.store }/>
         <PlayerSelectTable
           store={ store }
           tableStore={ unchosenTable.store }
