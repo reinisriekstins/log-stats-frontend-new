@@ -39,7 +39,7 @@ const PlayerSelectTable = props => {
     onTrClick = () => {},
     onTrMouseDown = () => {}
   } = props,
-  { all } = store.playerSelectPanel.players
+  { all } = store.playerSelection.players
 
   if (!tableStore) tableStore = CreateStore(all)
 

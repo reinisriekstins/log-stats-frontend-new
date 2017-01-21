@@ -22,7 +22,7 @@ useStrict(true)
 
 export const store = {
   inputRows: observable([]),
-  playerSelectPanel: observable({
+  playerSelection: observable({
     // flatten inputRows and only keep
     // elements that are objects
     get inputStates() {
@@ -33,20 +33,19 @@ export const store = {
     },
     get successful() {
       const { inputStates } =
-        store.playerSelectPanel
-      return filter(s =>
-        s.status === 'success')(inputStates)
+        store.playerSelection
+      return filter(s => s.status === 'success')(inputStates)
     },
     get pending() {
       const { inputStates } =
-        store.playerSelectPanel
+        store.playerSelection
       return filter(s =>
         s.status === 'pending')(inputStates)
     },
     logs: [],
     players: {
       get all() {
-        const { logs } = store.playerSelectPanel
+        const { logs } = store.playerSelection
         return logUtils.getPlayers(logs)
       },
       chosen: []
@@ -204,9 +203,9 @@ export const deleteInputRow = action(
 export const generateLogs = action(
   'generateLogs',
   () => {
-    const { playerSelectPanel } = store
-    playerSelectPanel.logs =
-      map(s => s.log)(playerSelectPanel.successful)
+    const { playerSelection } = store
+    playerSelection.logs =
+      map(s => s.log)(playerSelection.successful)
   }
 )
 
@@ -215,7 +214,7 @@ export const assignChosenPlayersTo = action(
   arr => {
     // console.log(arr)
     if ( isArrayLike(arr) )
-      store.playerSelectPanel.players.chosen = arr
+      store.playerSelection.players.chosen = arr
     else
       throw new Error('Can\'t rereference to non array.')
   }

@@ -5,7 +5,7 @@ import PlayerSelectTable from './PlayerSelectTable'
 import PlayerSelectTableExtras from './PlayerSelectTableExtras'
 
 const AccordContent2 = ({ store, actions }) => {
-  const { all } = store.playerSelectPanel.players
+  const { all } = store.playerSelection.players
   const filterProps = [
     'steamId',
     'names[0].name',
