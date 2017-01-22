@@ -56,6 +56,7 @@ Accordion3:
  * https://react.foundation/
  * http://webrafter.com/opensource/react-foundation-apps/tabs
 - [ ] switch from accordions to tabs
+- [ ] make file import modal more responsive
 
 
 -------------------------
